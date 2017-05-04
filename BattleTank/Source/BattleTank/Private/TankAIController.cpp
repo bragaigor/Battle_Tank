@@ -33,9 +33,31 @@ void ATankAIController::BeginPlay()
 	// UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play"));
 }
 
+// Called every frame
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	// TODO Move towards the player
+
+	AimTowardsPlayer();
+
+	// TODO Fire if ready
+
+}
+
 ATank* ATankAIController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn());
+}
+
+void ATankAIController::AimTowardsPlayer()
+{
+	if (!GetControlledTank()) { return; }
+	if (!GetPlayerController()) { return;  }
+
+	GetControlledTank()->AimAt(GetPlayerController()->GetActorLocation());
+	
 }
 
 ATank* ATankAIController::GetPlayerController() const
