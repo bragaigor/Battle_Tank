@@ -9,7 +9,7 @@ void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	auto PlayerTank = GetPlayerController();
+	/*auto PlayerTank = GetPlayerController();
 
 	auto ControlledTank = GetControlledTank();
 	if (!ControlledTank)
@@ -28,7 +28,7 @@ void ATankAIController::BeginPlay()
 	else
 	{
 		UE_LOG(LogTemp, Warning, TEXT("AIController found %s"), *PlayerTank->GetName());
-	}
+	}*/
 
 	
 	// UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play"));
@@ -39,37 +39,40 @@ void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	// TODO Move towards the player
+	auto PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
+	auto ControlledTank = Cast<ATank>(GetPawn());
 
-	AimTowardsPlayer();
-
-	// TODO Fire if ready
-
-}
-
-ATank* ATankAIController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}
-
-void ATankAIController::AimTowardsPlayer()
-{
-	if (!GetControlledTank()) { return; }
-	if (!GetPlayerController()) { return;  }
-
-	GetControlledTank()->AimAt(GetPlayerController()->GetActorLocation());
+	if (PlayerTank)
+	{
+		ControlledTank->AimAt(PlayerTank->GetActorLocation());
+		ControlledTank->Fire(); // TODO don't fire at frame
+	}
 	
 }
 
-ATank* ATankAIController::GetPlayerController() const
-{
-	// Finds the first player. The player that the user posseses
-	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
-	if (!PlayerTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AIController cannot see a Playertank"));
-		return nullptr;
-	}
-	return Cast<ATank>(PlayerTank);
+//ATank* ATankAIController::GetControlledTank() const
+//{
+//	return Cast<ATank>(GetPawn());
+//}
 
-}
+//void ATankAIController::AimTowardsPlayer()
+//{
+//	if (!GetControlledTank()) { return; }
+//	if (!GetPlayerController()) { return;  }
+//
+//	GetControlledTank()->AimAt(GetPlayerController()->GetActorLocation());
+//	
+//}
+
+//ATank* ATankAIController::GetPlayerController() const
+//{
+//	// Finds the first player. The player that the user posseses
+//	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
+//	if (!PlayerTank)
+//	{
+//		UE_LOG(LogTemp, Warning, TEXT("AIController cannot see a Playertank"));
+//		return nullptr;
+//	}
+//	return Cast<ATank>(PlayerTank);
+//
+//}

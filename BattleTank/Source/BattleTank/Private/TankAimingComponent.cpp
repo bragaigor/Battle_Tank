@@ -22,7 +22,11 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	// auto BarrelLocation = Barrel->GetComponentLocation();
 	// UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s from %s"), *OurTankName, *HitLocation.ToString(), *BarrelLocation.ToString());
 
-	if (!Barrel) { return; }
+	if (!Barrel) 
+	{ 
+		UE_LOG(LogTemp, Warning, TEXT("TankAimingComponent.cpp: No barrel found"));
+		return; 
+	}
 
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
@@ -54,8 +58,8 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	}
 	else 
 	{
-		/*auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: No aim solution found"), Time);*/
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("%f: No aim solution found"), Time);
 	}
 	
 }

@@ -38,16 +38,18 @@ private:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	UPROPERTY(EditAnyWhere, Category = Firing)
-	float Launchspeed = 5000; // Sensible starting value
-
-	UPROPERTY(EditAnyWhere, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	float Launchspeed = 4000; // Sensible starting value
+
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	float ReloadTimeInSeconds = 3;
+	
 
 	// Local Barrel reference fpr spawning projectile
 	UTankBarrel* Barrel = nullptr;
-
-	/// UClass* ProjectileBlueprint;
+	double LastFireTime = 0;
 
 };
