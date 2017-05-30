@@ -24,6 +24,9 @@ private:
 
 	// void AimTowardsPlayer();
 
+	// How close the AI tank can get close to the player 
+	float AcceptanceRadius = 3000.f;
+
 	virtual void BeginPlay() override;
 
 	// ATank* GetPlayerController() const;
