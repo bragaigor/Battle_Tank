@@ -18,7 +18,7 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
 
-	// TODO prevent double speed due to dual control use 
+	// TODO prevent double speed due to dual control use. Unbind one of the movements in blueprint
 }
 
 void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
